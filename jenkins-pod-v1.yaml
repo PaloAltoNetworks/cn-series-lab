@@ -13,7 +13,7 @@ spec:
         app: jenkins
          # Pods with annotation "paloaltonetworks.com/firewall: pan-ngfw*" are secured
       annotations:
-          paloaltonetworks.com/firewall: pan-ngfw
+          paloaltonetworks.com/firewall: pan-fw
     spec:
       containers:
         - name: jenkins

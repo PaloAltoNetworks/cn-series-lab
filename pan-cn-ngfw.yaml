@@ -1,5 +1,5 @@
-kind: DaemonSet
 apiVersion: apps/v1
+kind: DaemonSet
 metadata:
   name: pan-ngfw-ds
   namespace: kube-system
@@ -47,7 +47,7 @@ spec:
       #  firewall: pan-ngfw-ds
       containers:
         - name: pan-ngfw-container
-          image: gcr.io/paloaltonetworksgcp-public/paloaltonetworks/panos_cn_ngfw:9.2.0-b30
+          image: gcr.io/paloaltonetworksgcp-public/paloaltonetworks/panos_cn_ngfw:9.2.0-b46
           command: ["/sbin/pan_pause"]
           lifecycle:
             preStop:
@@ -63,10 +63,10 @@ spec:
           livenessProbe:
             exec:
               command: ["/sbin/pan_alive_check"]
-            initialDelaySeconds: 60
+            initialDelaySeconds: 600 #covers image download and panos start
             periodSeconds: 5
             # liveness is still the indicator of the container's health.
-            failureThreshold: 600 #covers image download and panos start
+            failureThreshold: 2
           imagePullPolicy: Always
           securityContext:
             capabilities:

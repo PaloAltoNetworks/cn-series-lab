@@ -6,11 +6,24 @@ metadata:
 data:
   PAN_SERVICE_NAME: pan-mgmt-svc
   PAN_MGMT_SECRET: pan-mgmt-secret
+
   # Panorama settings
-  PAN_PANORAMA_IP: "<panorama-IP>"
+  PAN_PANORAMA_IP: "35.193.189.4"
   PAN_DEVICE_GROUP: "dev-dg"
   PAN_TEMPLATE: "k8s-stack"
-  PAN_PANORAMA_CGNAME: "rp-cg1"
+  PAN_PANORAMA_CGNAME: "Panorama"
+
+  # Intended License Bundle type - "CN-X-BASIC, CN-X-BND1, CN-X-BND2"
+  PAN_BUNDLE_TYPE: "CN-X-BND2"
+
 #Non-mandatory parameters
-  #PAN_PANORAMA_CGNAME: ""
+  # Recommended to have same name as the cluster name provided in Panorama Kubernetes plugin - helps with easier identification of pods if managing multiple clusters with same Panorama
+  #CLUSTER_NAME: "<Cluster name>"
+
   #PAN_PANORAMA_IP2: ""
+  
+  # Comment out to use CERTs otherwise bypass encrypted connection to etcd in pan-mgmt.
+  #ETCD_CERT_BYPASS: ""          # No value needed
+
+  # Comment out to use CERTs otherwise PSK for IPSec between pan-mgmt and pan-ngfw
+  #IPSEC_CERT_BYPASS: ""         # No values needed

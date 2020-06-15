@@ -48,7 +48,7 @@ spec:
         # This container installs the pan CNI binaries
         # and CNI network config file on each node.
         - name: install-pan-cni
-          image: gcr.io/paloaltonetworksgcp-public/pan-cni:1.0.0-b3
+          image: gcr.io/paloaltonetworksgcp-public/pan-cni:1.0.0-b5
           imagePullPolicy: Always
           command: ["/install-pan-cni.sh", "main"]
           lifecycle:

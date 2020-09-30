@@ -8,12 +8,13 @@ data:
   PAN_MGMT_SECRET: pan-mgmt-secret
 
   # Panorama settings
-  PAN_PANORAMA_IP: "35.193.189.4"
+  PAN_PANORAMA_IP: "34.72.169.101"
   PAN_DEVICE_GROUP: "dev-dg"
-  PAN_TEMPLATE: "k8s-stack"
-  PAN_PANORAMA_CGNAME: "Panorama"
+  PAN_TEMPLATE_STACK: "k8s-stack"
+  PAN_CGNAME: "Panorama"
 
-  # Intended License Bundle type - "CN-X-BASIC, CN-X-BND1, CN-X-BND2"
+  # Intended License Bundle type - "CN-X-BASIC", "CN-X-BND1", "CN-X-BND2"
+  # based on the authcode applied on the Panorama K8S plugin"
   PAN_BUNDLE_TYPE: "CN-X-BND2"
 
 #Non-mandatory parameters
@@ -27,3 +28,6 @@ data:
 
   # Comment out to use CERTs otherwise PSK for IPSec between pan-mgmt and pan-ngfw
   #IPSEC_CERT_BYPASS: ""         # No values needed
+  
+  # Override auto-detect of jumbo-frame mode and force enable system-wide
+  #PAN_JUMBO_FRAME_ENABLED: "true"

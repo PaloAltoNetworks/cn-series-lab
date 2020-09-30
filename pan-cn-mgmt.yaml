@@ -24,7 +24,7 @@ spec:
       appname: pan-mgmt-sts
   serviceName: pan-mgmt-svc
   # Replicas are for fault-tolerance. Max 2 replicas supported.
-  replicas: 1
+  replicas: 2
   updateStrategy:
     type: RollingUpdate
   podManagementPolicy: Parallel
@@ -34,7 +34,7 @@ spec:
         app: pan-mgmt
         appname: pan-mgmt-sts
     spec:
-      serviceAccountName: pan-sa
+      serviceAccountName: pan-mgmt-sa
       priorityClassName: system-node-critical
       #terminationGracePeriodSeconds: 60 //for graceful exit of prestop hook
       # Turn on podAntiAffinity to schedule replicas on separate nodes
@@ -51,7 +51,7 @@ spec:
              topologyKey: "kubernetes.io/hostname"
       initContainers:
         - name: pan-mgmt-init
-          image: gcr.io/paloaltonetworksgcp-public/pan-mgmt-init:1.0.0-b5
+          image: docker.io/paloaltonetworks/pan_cn_mgmt_init:latest
           command: ["/usr/bin/pan_start.sh"]
           imagePullPolicy: Always
           securityContext:
@@ -89,7 +89,7 @@ spec:
             value: pan-fw
       containers:
         - name: pan-mgmt
-          image: gcr.io/paloaltonetworksgcp-public/paloaltonetworks/panos_cn_mgmt:9.2.0-b46
+          image: docker.io/paloaltonetworks/panos_cn_mgmt:10.0.1
           terminationMessagePolicy: FallbackToLogsOnError
           command: ["/sbin/pan_start"]
           lifecycle:
@@ -207,7 +207,7 @@ spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 4Gi
+          storage: 8Gi
   - metadata:
       name: panplugins
     spec:

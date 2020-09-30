@@ -40,7 +40,7 @@ spec:
         - effect: NoExecute
           operator: Exists
       priorityClassName: system-node-critical
-      serviceAccountName: pan-sa
+      serviceAccountName: pan-cni-sa
       # Minimize downtime during a rolling upgrade or deletion; tell Kubernetes to do a "force
       # deletion": https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods.
       terminationGracePeriodSeconds: 5
@@ -48,7 +48,7 @@ spec:
         # This container installs the pan CNI binaries
         # and CNI network config file on each node.
         - name: install-pan-cni
-          image: gcr.io/paloaltonetworksgcp-public/pan-cni:1.0.0-b5
+          image: docker.io/paloaltonetworks/pan_cni:1.0.1
           imagePullPolicy: Always
           command: ["/install-pan-cni.sh", "main"]
           lifecycle:
@@ -65,9 +65,11 @@ spec:
                   key: cni_network_config
             # Name of the primary CNI config file to add our CNI plugin.
             # This is optional. We always wait until this configured (if
-            # configured) or any cni conf file is detected.
-            - name: CNI_CONF_NAME
-              value: "10-calico.conflist"
+            # configured) or any cni conf file is detected. If configured
+            # pan-cni will wait until configured CNI conf becomes primary
+            #- name: CNI_CONF_NAME
+            #  value: "10-calico.conflist"
+            # 
             # This is optional. After pan-cni insertion, delay for it to be
             # picked up/propogated before makring pan-cni-ready (default 30 seconds)
             #- name: CNI_READY_DELAY

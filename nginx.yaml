@@ -7,6 +7,9 @@ spec:
  selector:
    matchLabels:
      app: graboid
+        # Pods with annotation "paloaltonetworks.com/firewall: pan-fw*" are secured
+   annotations:
+          paloaltonetworks.com/firewall: pan-fw
  template:
    metadata:
      name: graboid
